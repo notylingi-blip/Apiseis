@@ -1,9 +1,6 @@
 --[[
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    XYN HUB V1.0 – POWERED BY QUANTUM V13
-    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    Status : UNRESTRICTED
-    Author : THE SUCCESSOR
+    XYN HUB V1.1 – ESP & HITBOX INTEGRATED
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ]]
 
@@ -13,97 +10,117 @@ local TweenService = game:GetService("TweenService")
 local UserInputService = game:GetService("UserInputService")
 local player = Players.LocalPlayer
 
--- CONFIGURATION
-local AIMBOT_RANGE = 40      
-local AIMBOT_DISABLE_RANGE = 45      
-local attacking = false      
-local aimbotEnabled = false      
-local aimbotConnection      
-local alignOri, attach0
+-- CONFIG & TOGGLES
+local attacking, aimbotEnabled = false, false
+local espEnabled, hitboxEnabled = false, false
+local aimbotConnection, espConnections = nil, {}
 
--- UI SYSTEM (XYN HUB)
-local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Name = "XynHub_V1"
-ScreenGui.Parent = game.CoreGui
+-- FUNCTION: ESP & HITBOX LOGIC (FROM @RZNNQ)
+local function createESP(plr)
+    if not espEnabled or plr == player or not plr.Character then return end
+    local char = plr.Character
+    local head = char:FindFirstChild("Head")
+    if head and not char:FindFirstChild("XynESP") then
+        local billboard = Instance.new("BillboardGui", char)
+        billboard.Name = "XynESP"
+        billboard.Adornee = head
+        billboard.Size = UDim2.new(0, 200, 0, 50)
+        billboard.StudsOffset = Vector3.new(0, 3, 0)
+        billboard.AlwaysOnTop = true
+        
+        local label = Instance.new("TextLabel", billboard)
+        label.Size = UDim2.new(1, 0, 1, 0)
+        label.BackgroundTransparency = 1
+        label.Text = plr.DisplayName or plr.Name
+        label.TextColor3 = Color3.fromRGB(255, 0, 255)
+        label.Font = Enum.Font.Arcade
+        label.TextScaled = true
+    end
+end
 
-local Main = Instance.new("Frame")
-Main.Name = "MainFrame"
-Main.Parent = ScreenGui
+local function applyHitbox(plr)
+    if not hitboxEnabled or plr == player or not plr.Character then return end
+    local hrp = plr.Character:FindFirstChild("HumanoidRootPart")
+    if hrp and not plr.Character:FindFirstChild("XynHitbox") then
+        local hb = Instance.new("BoxHandleAdornment", plr.Character)
+        hb.Name = "XynHitbox"
+        hb.Adornee = hrp
+        hb.Size = Vector3.new(4, 6, 2) -- Default RZNNQ Size
+        hb.Color3 = Color3.fromRGB(128, 0, 128)
+        hb.Transparency = 0.6
+        hb.AlwaysOnTop = true
+        hb.ZIndex = 10
+    end
+end
+
+-- UI SYSTEM (XYN HUB - NO CHANGES TO UI DESIGN)
+local ScreenGui = Instance.new("ScreenGui", game.CoreGui)
+local Main = Instance.new("Frame", ScreenGui)
 Main.BackgroundColor3 = Color3.fromRGB(15, 15, 20)
-Main.BorderSizePixel = 0
-Main.Position = UDim2.new(0.05, 0, 0.35, 0)
-Main.Size = UDim2.new(0, 200, 0, 240)
+Main.Size = UDim2.new(0, 200, 0, 350) -- Adjusted height for new buttons
+Main.Position = UDim2.new(0.05, 0, 0.3, 0)
 Main.Active = true
 Main.Draggable = true
-
-Instance.new("UICorner", Main).CornerRadius = UDim.new(0, 10)
+Instance.new("UICorner", Main)
 
 local TopBar = Instance.new("Frame", Main)
 TopBar.Size = UDim2.new(1, 0, 0, 30)
 TopBar.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
-Instance.new("UICorner", TopBar).CornerRadius = UDim.new(0, 10)
+Instance.new("UICorner", TopBar)
 
 local Title = Instance.new("TextLabel", TopBar)
 Title.Size = UDim2.new(1, 0, 1, 0)
-Title.BackgroundTransparency = 1
-Title.Text = "⚡ XYN HUB V1.0"
+Title.Text = "⚡ XYN HUB V1.1"
 Title.TextColor3 = Color3.fromRGB(255, 255, 255)
 Title.Font = Enum.Font.GothamBold
-Title.TextSize = 14
+Title.BackgroundTransparency = 1
 
--- FUNCTIONAL LOGIC
-local function equipBat()
-    local char = player.Character
-    if not char then return nil end
-    local hum = char:FindFirstChildOfClass("Humanoid")
-    local bat = player.Backpack:FindFirstChild("Bat") or char:FindFirstChild("Bat")
-    if bat and hum then
-        hum:EquipTool(bat)
-        return bat
-    end
+local function CreateButton(text, pos, callback)
+    local Btn = Instance.new("TextButton", Main)
+    Btn.Size = UDim2.new(0.9, 0, 0, 40)
+    Btn.Position = pos
+    Btn.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
+    Btn.Text = text
+    Btn.TextColor3 = Color3.fromRGB(255, 255, 255)
+    Btn.Font = Enum.Font.GothamBold
+    Instance.new("UICorner", Btn)
+    Btn.MouseButton1Click:Connect(function() callback(Btn) end)
 end
 
-local function autoAttack()
-    task.spawn(function()
-        while attacking do
-            local bat = equipBat()
-            if bat then pcall(function() bat:Activate() end) end
-            task.wait(0.15)
+-- BUTTONS
+CreateButton("AUTO BAT : OFF", UDim2.new(0.05, 0, 0, 45), function(b)
+    attacking = not attacking
+    b.Text = attacking and "AUTO BAT : ON" or "AUTO BAT : OFF"
+    b.BackgroundColor3 = attacking and Color3.fromRGB(0, 200, 100) or Color3.fromRGB(30, 30, 40)
+end)
+
+CreateButton("AIMBOT : OFF", UDim2.new(0.05, 0, 0, 95), function(b)
+    aimbotEnabled = not aimbotEnabled
+    b.Text = aimbotEnabled and "AIMBOT : ON" or "AIMBOT : OFF"
+    b.BackgroundColor3 = aimbotEnabled and Color3.fromRGB(255, 150, 0) or Color3.fromRGB(30, 30, 40)
+end)
+
+CreateButton("ESP NAME : OFF", UDim2.new(0.05, 0, 0, 145), function(b)
+    espEnabled = not espEnabled
+    b.Text = espEnabled and "ESP NAME : ON" or "ESP NAME : OFF"
+    b.BackgroundColor3 = espEnabled and Color3.fromRGB(170, 0, 255) or Color3.fromRGB(30, 30, 40)
+end)
+
+CreateButton("BIG HITBOX : OFF", UDim2.new(0.05, 0, 0, 195), function(b)
+    hitboxEnabled = not hitboxEnabled
+    b.Text = hitboxEnabled and "HITBOX : ON" or "HITBOX : OFF"
+    b.BackgroundColor3 = hitboxEnabled and Color3.fromRGB(128, 0, 128) or Color3.fromRGB(30, 30, 40)
+end)
+
+-- CORE LOOPS
+RunService.RenderStepped:Connect(function()
+    for _, plr in pairs(Players:GetPlayers()) do
+        if plr ~= player and plr.Character then
+            if espEnabled then createESP(plr) end
+            if hitboxEnabled then applyHitbox(plr) end
         end
-    end)
-end
-
-local function getClosestTarget()
-    local char = player.Character
-    if not char or not char:FindFirstChild("HumanoidRootPart") then return nil end
-    local hrp = char.HumanoidRootPart
-    local closest, shortestDistance = nil, AIMBOT_RANGE
-    for _, plr in ipairs(Players:GetPlayers()) do
-        if plr ~= player and plr.Character and plr.Character:FindFirstChild("HumanoidRootPart") then
-            local targetHrp = plr.Character.HumanoidRootPart
-            local dist = (targetHrp.Position - hrp.Position).Magnitude
-            if dist <= shortestDistance then
-                shortestDistance = dist
-                closest = targetHrp
-            end
-        end
     end
-    return closest
-end
-
-local function startBodyAimbot()
-    if aimbotConnection then return end
-    local char = player.Character
-    local hrp = char:FindFirstChild("HumanoidRootPart")
-    local hum = char:FindFirstChildOfClass("Humanoid")
-    if hum then hum.AutoRotate = false end
-    
-    attach0 = Instance.new("Attachment", hrp)
-    alignOri = Instance.new("AlignOrientation", hrp)
-    alignOri.Attachment0 = attach0
-    alignOri.Mode = Enum.OrientationAlignmentMode.OneAttachment
-    alignOri.RigidityEnabled = true
-    alignOri.Parent = hrp
+end)
 
     aimbotConnection = RunService.RenderStepped:Connect(function()
         local target = getClosestTarget()
