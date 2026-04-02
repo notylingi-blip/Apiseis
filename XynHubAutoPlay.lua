@@ -1,3 +1,20 @@
+local Whitelist = {
+    ["pemaisab"] = true, 
+    ["whtdeathh"] = true,
+    ["shaka_426"] = true,
+    ["jaxram122013"] = true,
+    ["mantap_hoki09"] = true,
+    ["bryans3211"] = true,
+    ["turey1320"] = true,
+}
+
+if not Whitelist[string.lower(game.Players.LocalPlayer.Name)] then
+    game.Players.LocalPlayer:Kick("\n\n[XYN HUB SECURITY]\nYou Not Buy Xyn Hub!\n\nContact Owner: PemaiSab")
+    task.wait(0.5)
+    while true do end 
+    return
+end
+
 repeat task.wait() until game:IsLoaded()
 
 local Players           = game:GetService("Players")
