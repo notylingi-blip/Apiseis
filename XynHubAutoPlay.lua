@@ -1,5 +1,5 @@
 local Whitelist = {
-    ["pemaisab"] = true, 
+    ["pemaisab"] = true,
     ["whtdeathh"] = true,
     ["shaka_426"] = true,
     ["jaxram122013"] = true,
@@ -9,7 +9,9 @@ local Whitelist = {
     ["dafi_freefire"] = true,
 }
 
-if not Whitelist[string.lower(game:GetService("Players").LocalPlayer.Name)] then
+local name = string.lower(game:GetService("Players").LocalPlayer.Name)
+
+if not Whitelist[name] then
     game:GetService("Players").LocalPlayer:Kick("you not buy xyn hub")
     task.wait(0.5)
     while true do end 
