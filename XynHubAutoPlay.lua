@@ -1,5 +1,3 @@
--- leaked by https://discord.gg/WfTDsBPR9n join for more sources
-
 repeat task.wait() until game:IsLoaded()
 
 local Players           = game:GetService("Players")
@@ -1572,7 +1570,7 @@ if isMobile then
         local hitBtn = Instance.new("TextButton", cont)
         hitBtn.Size = UDim2.new(1, 0, 1, 0)
         hitBtn.BackgroundTransparency = 1
-        hitBtn.Text = ""
+        hitBtn.Text = "Steal Speed"
         hitBtn.ZIndex = 10
 
         local touchActive = false
@@ -1878,7 +1876,7 @@ local function criarTag(char)
     text.Size = UDim2.new(1,0,1,0)
     text.BackgroundTransparency = 1
     text.Text = "discord.gg/ZxefdezK3"
-    text.TextColor3 = Color3.fromRGB(255,255,0)
+    text.TextColor3 = Color3.fromRGB(255,215,0)
     text.TextScaled = true
     text.Font = Enum.Font.SourceSansBold
 end
