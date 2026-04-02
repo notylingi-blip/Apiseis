@@ -20,6 +20,7 @@ if not CheckWhitelist(game.Players.LocalPlayer) then
     return -- Biar script di bawahnya gak jalan sama sekali!
 end
 
+
 repeat task.wait() until game:IsLoaded()
 
 local Players           = game:GetService("Players")
