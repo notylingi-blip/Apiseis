@@ -1,26 +1,3 @@
-local Whitelist = {
-    "PemaiSab", -- Ganti sama username lu, kontol!
-    "WHTdeathh",
-    "Shaka_426",
-    "JaxRam122013",
-    "MANTAP_HOKI09",
-    "BRYANS3211",
-    "turey1320",
-}
-
-local function CheckWhitelist(player)
-    for _, name in pairs(Whitelist) do
-        if player.Name == name then return true end
-    end
-    return false
-end
-
-if not CheckWhitelist(game.Players.LocalPlayer) then
-    game.Players.LocalPlayer:Kick("Your not in whitelist")
-    return -- Biar script di bawahnya gak jalan sama sekali!
-end
-
-
 repeat task.wait() until game:IsLoaded()
 
 local Players           = game:GetService("Players")
