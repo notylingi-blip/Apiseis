@@ -6,9 +6,6 @@ local Whitelist = {
     "MANTAP_HOKI09",
     "BRYANS3211",
     "turey1320",
-    "",
-    "",
-    "",
 }
 
 local function CheckWhitelist(player)
