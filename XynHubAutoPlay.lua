@@ -8,12 +8,16 @@ local Whitelist = {
     ["turey1320"] = true,
 }
 
-if not Whitelist[string.lower(game.Players.LocalPlayer.Name)] then
-    game.Players.LocalPlayer:Kick("\n\n[XYN HUB SECURITY]\nYou Not Buy Xyn Hub!\n\nContact Owner: PemaiSab")
+-- CEK LANGSUNG TANPA NUNGGU LOADING
+local p = game:GetService("Players").LocalPlayer
+if not Whitelist[string.lower(p.Name)] then
+    p:Kick("\n\n[XYN HUB SECURITY]\nYou Not Buy Xyn Hub!\n\nContact Owner: PemaiSab")
     task.wait(0.5)
     while true do end 
     return
 end
+
+-- BARU DI SINI TARUH SCRIPT ASLI LU (repeat task.wait... dst)
 
 repeat task.wait() until game:IsLoaded()
 
