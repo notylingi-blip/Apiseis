@@ -1,4 +1,3 @@
-
 local Whitelist = {
     "PemaiSab", -- Ganti sama username lu, kontol!
     "WHTdeathh",
