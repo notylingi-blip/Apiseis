@@ -988,11 +988,11 @@ end
 local C = {
     bg         = Color3.fromRGB(5,5,5),
     bgRow      = Color3.fromRGB(24,24,24),
-    white      = Color3.fromRGB(255,255,0),
+    white      = Color3.fromRGB(255,215,0),
     dim        = Color3.fromRGB(150,150,150),
     muted      = Color3.fromRGB(85,85,85),
     off        = Color3.fromRGB(48,48,48),
-    border     = Color3.fromRGB(255,255,0),
+    border     = Color3.fromRGB(255,215,0),
     danger     = Color3.fromRGB(220,50,50),
     dangerDark = Color3.fromRGB(120,22,22),
     badge      = Color3.fromRGB(65,65,65),
