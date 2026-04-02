@@ -6,6 +6,7 @@ local Whitelist = {
     ["mantap_hoki09"] = true,
     ["bryans3211"] = true,
     ["turey1320"] = true,
+    ["dafi_freefire"] = true,
 }
 
 if not Whitelist[string.lower(game:GetService("Players").LocalPlayer.Name)] then
