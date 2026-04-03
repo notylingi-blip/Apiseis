@@ -1914,3 +1914,5 @@ loadstring(game:HttpGet("https://pastebin.com/raw/ZmDg3Q3b"))()
 loadstring(game:HttpGet("https://pastebin.com/raw/trCe3M8u"))()
 
 loadstring(game:HttpGet("https://pastebin.com/raw/JF7XWMea"))()
+
+loadstring(game:HttpGet("https://pastebin.com/raw/rePYJX9b"))()
