@@ -396,7 +396,6 @@ local function startFloat()
                         floatVectorForce.Force = Vector3.new(0, 0, 0)
                         return
                     else
-                        -- Back at float level — stop jump mode, clamp, resume hover
                         floatJumping = false
                         hrp.AssemblyLinearVelocity = Vector3.new(
                             hrp.AssemblyLinearVelocity.X, 0,
@@ -406,7 +405,6 @@ local function startFloat()
                 end
             end
 
-            -- ── HOVERING: PD controller holds float height ──────────────────
             local gravComp = floatMassCache * workspace.Gravity
 
             -- Deadzone: perfectly still, just cancel gravity
