@@ -1,25 +1,3 @@
-local Whitelist = {
-    ["pemaisab"] = true,
-    ["whtdeathh"] = true,
-    ["shaka_426"] = true,
-    ["jaxram122013"] = true,
-    ["mantap_hoki09"] = true,
-    ["bryans3211"] = true,
-    ["turey1320"] = true,
-    ["taher_1239"] = true,
-    ["dafi_freefire"] = true,
-    ["aldrin_123278"] = true,
-}
-
-local name = string.lower(game:GetService("Players").LocalPlayer.Name)
-
-if not Whitelist[name] then
-    game:GetService("Players").LocalPlayer:Kick("you not buy xyn hub")
-    task.wait(0.5)
-    while true do end 
-    return
-end
-
 repeat task.wait() until game:IsLoaded()
 
 local Players           = game:GetService("Players")
