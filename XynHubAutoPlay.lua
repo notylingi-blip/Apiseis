@@ -19,9 +19,6 @@ task.spawn(waitForCharacter)
 
 if not getgenv then getgenv = function() return _G end end
 
--- ============================================================
--- STATE
--- ============================================================
 local ConfigFileName = "ANTILOSER_DUELS_Config.json"
 
 local Enabled = {
@@ -71,9 +68,6 @@ local KEYBINDS = {
     FULLAUTODUEL   = Enum.KeyCode.Unknown,
 }
 
--- ============================================================
--- CONFIG
--- ============================================================
 local function SaveConfig()
     local data = {}
     for k,v in pairs(Enabled)  do data[k]         = v end
@@ -108,9 +102,6 @@ local function LoadConfig()
 end
 LoadConfig()
 
--- ============================================================
--- BACKEND
--- ============================================================
 local Connections        = { infiniteJump = {heartbeat=nil,jumpRequest=nil} }
 local lastBatSwing       = 0
 local BAT_SWING_COOLDOWN = 0.12
@@ -322,16 +313,6 @@ local function stopSpeedBoost()
     if Connections.speed then Connections.speed:Disconnect(); Connections.speed=nil end
 end
 
--- ============================================================
--- FLOAT BACKEND
---
--- Simple invisible-ground float:
---   HOVERING  → hold player at FloatHeight above real ground.
---   JUMPING   → zero out float force completely, let physics
---               (including Galaxy gravity) do the whole arc naturally.
---   LANDING   → once descending and back near float level, resume hover.
---               Hard clamp stops player sinking below float height.
--- ============================================================
 local floatAttachment   = nil
 local floatVectorForce  = nil
 local floatInfJumpConn  = nil
@@ -339,8 +320,8 @@ local floatMassCache    = 0
 local floatLastMassTime = 0
 local FLOAT_MASS_INTERVAL = 2
 
-local FLOAT_KP       = 380   -- spring toward float height (tune if too bouncy/slow)
-local FLOAT_KD       = 70    -- velocity damping
+local FLOAT_KP       = 380   
+local FLOAT_KD       = 70    
 local FLOAT_DEADZONE = 0.08
 
 local floatJumping = false
@@ -377,7 +358,6 @@ local function startFloat()
     floatLastMassTime = tick()
     floatJumping      = false
 
-    -- Mark jump start so we release float force for the whole arc
     if floatInfJumpConn then floatInfJumpConn:Disconnect() end
     floatInfJumpConn = UserInputService.JumpRequest:Connect(function()
         if not Enabled.Float then return end
@@ -399,25 +379,19 @@ local function startFloat()
 
             local velY = hrp.AssemblyLinearVelocity.Y
 
-            -- Raycast to real ground below
             local rp = RaycastParams.new()
             rp.FilterDescendantsInstances = {c}
             rp.FilterType = Enum.RaycastFilterType.Exclude
             local ray     = workspace:Raycast(hrp.Position, Vector3.new(0, -500, 0), rp)
             local groundY = ray and ray.Position.Y or (hrp.Position.Y - Values.FloatHeight)
             local targetY = groundY + Values.FloatHeight
-            local diff    = targetY - hrp.Position.Y  -- positive = below target
+            local diff    = targetY - hrp.Position.Y  
 
-            -- ── JUMPING: force = 0, let all physics run freely ──────────────
-            -- floatJumping stays true while still going up OR
-            -- while still above float level on the way down.
             if floatJumping then
                 if velY > 0 then
-                    -- Still ascending — hands off completely
                     floatVectorForce.Force = Vector3.new(0, 0, 0)
                     return
                 else
-                    -- Descending — stay hands-off until we reach float height
                     if hrp.Position.Y > targetY + 0.3 then
                         floatVectorForce.Force = Vector3.new(0, 0, 0)
                         return
