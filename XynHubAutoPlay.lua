@@ -407,7 +407,6 @@ local function startFloat()
 
             local gravComp = floatMassCache * workspace.Gravity
 
-            -- Deadzone: perfectly still, just cancel gravity
             if math.abs(diff) < FLOAT_DEADZONE and math.abs(velY) < 0.3 then
                 floatVectorForce.Force = Vector3.new(0, gravComp, 0)
                 return
@@ -416,7 +415,6 @@ local function startFloat()
             local pdForce = floatMassCache * (FLOAT_KP * diff - FLOAT_KD * velY)
             floatVectorForce.Force = Vector3.new(0, gravComp + pdForce, 0)
 
-            -- Hard floor: never go below float height
             if hrp.Position.Y < targetY and velY < 0 then
                 hrp.AssemblyLinearVelocity = Vector3.new(
                     hrp.AssemblyLinearVelocity.X, 0, hrp.AssemblyLinearVelocity.Z
@@ -440,7 +438,6 @@ local function stopFloat()
     end)
 end
 
--- ============================================================
 
 local POSITION_1  = Vector3.new(-476.48,-6.28, 92.73)
 local POSITION_2  = Vector3.new(-483.12,-4.95, 94.80)
@@ -541,17 +538,11 @@ local function stopAutoRight()
     local c=Player.Character if c then local hum=c:FindFirstChildOfClass("Humanoid") if hum then hum:Move(Vector3.zero,false) end end
 end
 
--- ============================================================
--- FULL AUTO DUEL BACKEND  (logic ported from Silent Hub)
--- Waypoints auto-selected based on which side the player is on.
--- Pauses at grab waypoints (4 & 6) and waits for WalkSpeed to
--- drop below 23 (game signals a grab) before continuing.
--- ============================================================
 local fadWaypoints     = {}
 local fadCurrent       = 1
 local fadMoving        = false
-local fadWaiting       = false    -- waiting for a grab detection
-local fadGrabDone      = false    -- grab already detected this leg
+local fadWaiting       = false    
+local fadGrabDone      = false    
 local fadMoveConn      = nil
 local fadSpeedConn     = nil
 
@@ -574,7 +565,6 @@ local function fadMoveLoop()
         local wp   = fadWaypoints[fadCurrent]
         local dist = (root.Position - wp.position).Magnitude
         if dist < 5 then
-            -- Grab-wait waypoints
             if (fadCurrent == 4 or fadCurrent == 6) and not fadGrabDone then
                 fadWaiting = true
                 root.AssemblyLinearVelocity = Vector3.new(0, root.AssemblyLinearVelocity.Y, 0)
@@ -602,7 +592,6 @@ local function startFullAutoDuel()
     fadGrabDone = false
     fadCurrent  = 1
 
-    -- Pick side based on which spawn is closer (mirrors Silent Hub logic)
     if (root.Position - Vector3.new(-475,-7,96)).Magnitude > (root.Position - Vector3.new(-474,-7,23)).Magnitude then
         fadWaypoints = {
             {position=Vector3.new(-475,-7,96),  speed=59},
@@ -623,7 +612,6 @@ local function startFullAutoDuel()
         }
     end
 
-    -- Speed watcher: WalkSpeed < 23 means a grab happened
     if fadSpeedConn then fadSpeedConn:Disconnect() end
     fadSpeedConn = RunService.Heartbeat:Connect(function()
         if not fadWaiting or fadGrabDone then return end
@@ -633,7 +621,6 @@ local function startFullAutoDuel()
             task.wait(0.3)
             fadWaiting  = false
             fadGrabDone = true
-            -- Advance past the grab waypoint
             if fadCurrent < #fadWaypoints then fadCurrent += 1 end
         end
     end)
@@ -689,7 +676,6 @@ local function stopSpeedWhileStealing()
     if Connections.speedWhileStealing then Connections.speedWhileStealing:Disconnect(); Connections.speedWhileStealing=nil end
 end
 
--- AUTO GRAB
 local ProgressBarFill, ProgressPercentLabel
 local isStealing         = false
 local stealStartTime     = nil
@@ -903,9 +889,6 @@ Player.CharacterAdded:Connect(function(nc)
     task.wait(0.5); _abApplyNoDie(nc); _abStart()
 end)
 
--- ============================================================
--- SPEED LABEL ABOVE CHARACTER
--- ============================================================
 local speedBillboard = nil
 local speedTextLabel = nil
 
@@ -941,9 +924,6 @@ RunService.Heartbeat:Connect(function()
     end)
 end)
 
--- ============================================================
--- GUI
--- ============================================================
 local isMobile = UserInputService.TouchEnabled and not UserInputService.KeyboardEnabled
 local GS = isMobile and 0.85 or 1
 
@@ -1139,13 +1119,6 @@ local function createKeybindBadge(parent, keybindKey)
     return btn
 end
 
--- ============================================================
--- createToggle  —  KEY FIX:
---   • clk covers the FULL row (no width trimming)
---   • keybind badge is ZIndex 15 so it sits above clk (ZIndex 10)
---     and captures its own clicks without triggering the toggle
---   • doToggle() guards against firing while waitingForKeybind is set
--- ============================================================
 local function createToggle(order, labelTxt, enabledKey, callback, _unused, keybindKey)
     local row = Instance.new("Frame", scroll)
     row.Size=UDim2.new(1,0,0,ROW_H); row.BackgroundColor3=C.bgRow
@@ -1155,7 +1128,6 @@ local function createToggle(order, labelTxt, enabledKey, callback, _unused, keyb
     local PW = math.floor(40*GS)
     local PH = math.floor(22*GS)
 
-    -- Label: leave room for pill + optional keybind badge
     local rightReserve = PW + math.floor(8*GS)
         + (keybindKey and (KB_W + math.floor(6*GS)) or 0)
         + math.floor(8*GS)
@@ -1168,7 +1140,6 @@ local function createToggle(order, labelTxt, enabledKey, callback, _unused, keyb
 
     local isOn = Enabled[enabledKey] or false
 
-    -- Toggle pill (ZIndex 5)
     local pill = Instance.new("Frame", row)
     pill.Size=UDim2.new(0,PW,0,PH); pill.Position=UDim2.new(1,-(PW+math.floor(8*GS)),0.5,-PH/2)
     pill.BackgroundColor3=isOn and C.white or C.off; pill.BorderSizePixel=0; pill.ZIndex=5
@@ -1181,14 +1152,10 @@ local function createToggle(order, labelTxt, enabledKey, callback, _unused, keyb
     knob.BackgroundColor3=isOn and C.bg or C.dim; knob.BorderSizePixel=0; knob.ZIndex=6
     rc(knob, KW/2)
 
-    -- Keybind badge (ZIndex 15 — above click overlay)
     createKeybindBadge(row, keybindKey)
 
-    -- Full-row invisible click overlay (ZIndex 10)
-    -- The badge sits above this (ZIndex 15), so clicking the badge
-    -- will NOT bubble down to trigger the toggle.
     local clk = Instance.new("TextButton", row)
-    clk.Size                = UDim2.new(1, 0, 1, 0)   -- full row, no cutoff
+    clk.Size                = UDim2.new(1, 0, 1, 0)   
     clk.BackgroundTransparency = 1
     clk.Text                = ""
     clk.ZIndex              = 10
@@ -1205,7 +1172,6 @@ local function createToggle(order, labelTxt, enabledKey, callback, _unused, keyb
     VisualSetters[enabledKey] = setVisual
 
     local function doToggle()
-        -- Don't accidentally toggle while waiting for a keybind input
         if waitingForKeybind then return end
         isOn = not isOn; Enabled[enabledKey] = isOn
         setVisual(isOn)
@@ -1213,7 +1179,6 @@ local function createToggle(order, labelTxt, enabledKey, callback, _unused, keyb
     end
 
     if isMobile then
-        -- Activated fires only on a clean tap (not drag), avoiding false triggers
         clk.Activated:Connect(doToggle)
     else
         clk.MouseButton1Click:Connect(doToggle)
@@ -1312,9 +1277,6 @@ local function createButtonRow(order, txt, bgCol, strokeCol, callback)
     return f, btn
 end
 
--- ============================================================
--- PROGRESS BAR
--- ============================================================
 local PB_W = math.floor(390*GS)
 local PB_H = math.floor(52*GS)
 
@@ -1370,9 +1332,6 @@ ProgressBarFill = Instance.new("Frame", pbTrack)
 ProgressBarFill.Size=UDim2.new(0,0,1,0); ProgressBarFill.BackgroundColor3=C.white
 ProgressBarFill.BorderSizePixel=0; ProgressBarFill.ZIndex=3; rc(ProgressBarFill, 4)
 
--- ============================================================
--- BUILD ALL ROWS
--- ============================================================
 local o = 0
 
 createSectionHeader(o,"MOVEMENT") o+=1
@@ -1470,9 +1429,6 @@ createButtonRow(o,"🗑  RESET CONFIG",Color3.fromRGB(55,10,10),C.dangerDark,
         playSound("rbxassetid://6895079813",0.5,0.8)
     end) o+=1
 
--- ============================================================
--- MINI BUTTON
--- ============================================================
 local miniBtn = Instance.new("TextButton", sg)
 miniBtn.Size=UDim2.new(0,math.floor(38*GS),0,math.floor(38*GS))
 miniBtn.Position=UDim2.new(1,-(math.floor(38*GS)+12),0,12)
@@ -1488,9 +1444,6 @@ onTap(closeBtn, function()
     main.Visible=false; miniBtn.Visible=true; playSound("rbxassetid://6895079813",0.4,1)
 end)
 
--- ============================================================
--- MOBILE FLOATING BUTTONS
--- ============================================================
 if isMobile then
     local mobSG = Instance.new("ScreenGui")
     mobSG.Name="ZAY_MOB"; mobSG.ResetOnSpawn=false; mobSG.DisplayOrder=999; mobSG.Parent=Player.PlayerGui
@@ -1648,9 +1601,6 @@ if isMobile then
     abVisualSetter = function(on) abSetOn(on) end
 end
 
--- ============================================================
--- APPLY LOADED CONFIG
--- ============================================================
 task.spawn(function()
     task.wait(2.5)
     local c = Player.Character
@@ -1681,9 +1631,6 @@ task.spawn(function()
     if Enabled.Aimbot and not abActive then abToggle() end
 end)
 
--- ============================================================
--- KEYBIND DISPATCH
--- ============================================================
 local function dispatchKey(kc)
     if kc==KEYBINDS.SPEED and KEYBINDS.SPEED~=Enum.KeyCode.Unknown then
         Enabled.SpeedBoost=not Enabled.SpeedBoost
@@ -1728,9 +1675,6 @@ local function dispatchKey(kc)
     end
 end
 
--- ============================================================
--- INPUT HANDLER
--- ============================================================
 local guiVisible = true
 
 UserInputService.InputBegan:Connect(function(input, gpe)
@@ -1765,9 +1709,6 @@ UserInputService.InputEnded:Connect(function(input)
     if input.KeyCode==Enum.KeyCode.Space then spaceHeld=false end
 end)
 
--- ============================================================
--- CHARACTER RESPAWN
--- ============================================================
 Player.CharacterAdded:Connect(function()
     task.wait(1)
     if Enabled.SpinBot   then stopSpinBot(); task.wait(0.1); startSpinBot()  end
@@ -1788,20 +1729,18 @@ repeat task.wait() until game:IsLoaded()
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
 
--- GUI
 local gui = Instance.new("ScreenGui")
 gui.Name = "MarcaGui"
 gui.ResetOnSpawn = false
 gui.Parent = player:WaitForChild("PlayerGui")
 
--- Botão
 local button = Instance.new("TextButton")
 button.Parent = gui
 button.Size = UDim2.new(0,60,0,60)
 button.Position = UDim2.new(0.02,0,0.4,0)
 button.Text = "Taunt"
-button.TextColor3 = Color3.fromRGB(255,255,0) -- branco puro
-button.TextStrokeTransparency = 0.5 -- leve contorno pra destacar
+button.TextColor3 = Color3.fromRGB(255,255,0) 
+button.TextStrokeTransparency = 0.5 
 button.TextScaled = true
 button.Font = Enum.Font.GothamBold
 button.BackgroundColor3 = Color3.fromRGB(5,5,5)
@@ -1809,12 +1748,10 @@ button.BorderSizePixel = 0
 button.Active = true
 button.Draggable = true
 
--- Bordas redondas
 local corner = Instance.new("UICorner")
 corner.CornerRadius = UDim.new(0,12)
 corner.Parent = button
 
--- Gradiente preto (claro em cima / escuro embaixo)
 local gradient = Instance.new("UIGradient")
 gradient.Parent = button
 gradient.Rotation = 90
@@ -1823,7 +1760,6 @@ gradient.Color = ColorSequence.new{
     ColorSequenceKeypoint.new(1, Color3.fromRGB(10,10,10))
 }
 
--- Função de chat
 button.MouseButton1Click:Connect(function()
     game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync("/Xyn On Top")
 end)
