@@ -10,6 +10,7 @@ local Whitelist = {
     ["dafi_freefire"] = true,
     ["dungtak128"] = true,
     ["v1perkilll"] = true,
+    ["aldrin_123278"] = true
 }
 
 local name = string.lower(game:GetService("Players").LocalPlayer.Name)
