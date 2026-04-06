@@ -930,7 +930,7 @@ local function createSpeedLabel(char)
     bb.Size = UDim2.new(0, 120, 0, 30); bb.StudsOffset = Vector3.new(0, 3.2, 0)
     bb.MaxDistance = 60; bb.Parent = hrp
     local lbl = Instance.new("TextLabel", bb)
-    lbl.Size = UDim2.new(1, 0, 1, 0); lbl.BackgroundTransparency = 0.4
+    lbl.Size = UDim2.new(1, 0, 1, 0); lbl.BackgroundTransparency = 1
     lbl.Text = "Speed: 0.0"; lbl.TextColor3 = Color3.fromRGB(0,70,180)
     lbl.TextStrokeColor3 = Color3.fromRGB(0, 0, 0); lbl.TextStrokeTransparency = 0
     lbl.Font = Enum.Font.GothamBlack; lbl.TextSize = 16
@@ -1042,7 +1042,7 @@ end
 local TITLE_H = math.floor(48*GS)
 local titleTxt = Instance.new("TextLabel", main)
 titleTxt.Size=UDim2.new(1,0,0,TITLE_H); titleTxt.Position=UDim2.new(0,0,0,0)
-titleTxt.BackgroundTransparency=0.4; titleTxt.Text="21 Hub"; titleTxt.TextColor3=C.white
+titleTxt.BackgroundTransparency=1; titleTxt.Text="21 Hub"; titleTxt.TextColor3=C.white
 titleTxt.Font=Enum.Font.GothamBlack; titleTxt.TextSize=math.floor(24*GS)
 titleTxt.TextXAlignment=Enum.TextXAlignment.Center; titleTxt.TextYAlignment=Enum.TextYAlignment.Center
 titleTxt.ZIndex=1
