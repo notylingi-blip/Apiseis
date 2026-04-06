@@ -1017,7 +1017,7 @@ if isMobile then
     local titleHitbox = Instance.new("", main)
     titleHitbox.Size = UDim2.new(1, -math.floor(_dragCBW+20*GS), 0, math.floor(48*GS))
     titleHitbox.Position = UDim2.new(0,0,0,0)
-    titleHitbox.BackgroundTransparency = 0.4; titleHitbox.Text = "Hitbox"; titleHitbox.ZIndex = 20
+    titleHitbox.BackgroundTransparency = 1; titleHitbox.Text = ""; titleHitbox.ZIndex = 20
     titleHitbox.InputBegan:Connect(function(inp)
         if inp.UserInputType == Enum.UserInputType.Touch then
             mobDragging = true
