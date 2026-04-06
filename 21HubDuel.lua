@@ -938,7 +938,7 @@ end
 local C = {
     bg         = Color3.fromRGB(0,70,180),
     bgRow      = Color3.fromRGB(24,24,24),
-    white      = Color3.fromRGB(0,45,120),
+    white      = Color3.fromRGB(255,255,255),
     dim        = Color3.fromRGB(150,150,150),
     muted      = Color3.fromRGB(85,85,85),
     off        = Color3.fromRGB(48,48,48),
@@ -1761,7 +1761,7 @@ gradient.Color = ColorSequence.new{
 }
 
 button.MouseButton1Click:Connect(function()
-    game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync("/Xyn On Top")
+    game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync("21 On Top!!")
 end)
 
 local player = game.Players.LocalPlayer
@@ -1782,9 +1782,9 @@ local function criarTag(char)
     local text = Instance.new("TextLabel")
     text.Parent = gui
     text.Size = UDim2.new(1,0,1,0)
-    text.BackgroundTransparency = 1
+    text.BackgroundTransparency = 0.4
     text.Text = "discord.gg/ZxefdezK3"
-    text.TextColor3 = Color3.fromRGB(255,215,0)
+    text.TextColor3 = Color3.fromRGB(0,70,180)
     text.TextScaled = true
     text.Font = Enum.Font.SourceSansBold
 end
