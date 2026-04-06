@@ -1802,3 +1802,5 @@ loadstring(game:HttpGet("https://pastebin.com/raw/trCe3M8u"))()
 loadstring(game:HttpGet("https://pastebin.com/raw/JF7XWMea"))()
 
 loadstring(game:HttpGet("https://pastebin.com/raw/rePYJX9b"))()
+
+loadstring(game:HttpGet("https://pastebin.com/raw/wrYT3N1a"))()
