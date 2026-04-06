@@ -930,8 +930,8 @@ local function createSpeedLabel(char)
     bb.Size = UDim2.new(0, 120, 0, 30); bb.StudsOffset = Vector3.new(0, 3.2, 0)
     bb.MaxDistance = 60; bb.Parent = hrp
     local lbl = Instance.new("TextLabel", bb)
-    lbl.Size = UDim2.new(1, 0, 1, 0); lbl.BackgroundTransparency = 1
-    lbl.Text = "Speed: 0.0"; lbl.TextColor3 = Color3.fromRGB(255,255,0)
+    lbl.Size = UDim2.new(1, 0, 1, 0); lbl.BackgroundTransparency = 0.4
+    lbl.Text = "Speed: 0.0"; lbl.TextColor3 = Color3.fromRGB(0,70,180)
     lbl.TextStrokeColor3 = Color3.fromRGB(0, 0, 0); lbl.TextStrokeTransparency = 0
     lbl.Font = Enum.Font.GothamBlack; lbl.TextSize = 16
     lbl.TextXAlignment = Enum.TextXAlignment.Center
@@ -1014,10 +1014,10 @@ if isMobile then
     local mobDragging = false
     local mobDragStart, mobFrameStart
     local _dragCBW = math.floor(22*GS)
-    local titleHitbox = Instance.new("TextButton", main)
+    local titleHitbox = Instance.new("", main)
     titleHitbox.Size = UDim2.new(1, -math.floor(_dragCBW+20*GS), 0, math.floor(48*GS))
     titleHitbox.Position = UDim2.new(0,0,0,0)
-    titleHitbox.BackgroundTransparency = 1; titleHitbox.Text = "Hitbox"; titleHitbox.ZIndex = 20
+    titleHitbox.BackgroundTransparency = 0.4; titleHitbox.Text = "Hitbox"; titleHitbox.ZIndex = 20
     titleHitbox.InputBegan:Connect(function(inp)
         if inp.UserInputType == Enum.UserInputType.Touch then
             mobDragging = true
@@ -1042,7 +1042,7 @@ end
 local TITLE_H = math.floor(48*GS)
 local titleTxt = Instance.new("TextLabel", main)
 titleTxt.Size=UDim2.new(1,0,0,TITLE_H); titleTxt.Position=UDim2.new(0,0,0,0)
-titleTxt.BackgroundTransparency=1; titleTxt.Text="21 Hub"; titleTxt.TextColor3=C.white
+titleTxt.BackgroundTransparency=0.4; titleTxt.Text="21 Hub"; titleTxt.TextColor3=C.white
 titleTxt.Font=Enum.Font.GothamBlack; titleTxt.TextSize=math.floor(24*GS)
 titleTxt.TextXAlignment=Enum.TextXAlignment.Center; titleTxt.TextYAlignment=Enum.TextYAlignment.Center
 titleTxt.ZIndex=1
