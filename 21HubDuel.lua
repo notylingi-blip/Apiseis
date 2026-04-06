@@ -903,7 +903,7 @@ local function createSpeedLabel(char)
     bb.MaxDistance = 60; bb.Parent = hrp
     local lbl = Instance.new("TextLabel", bb)
     lbl.Size = UDim2.new(1, 0, 1, 0); lbl.BackgroundTransparency = 1
-    lbl.Text = "Speed: 0.0"; lbl.TextColor3 = Color3.fromRGB(255,255,0)
+    lbl.Text = "Speed: 0.0"; lbl.TextColor3 = Color3.fromRGB(0,70,180)
     lbl.TextStrokeColor3 = Color3.fromRGB(0, 0, 0); lbl.TextStrokeTransparency = 0
     lbl.Font = Enum.Font.GothamBlack; lbl.TextSize = 16
     lbl.TextXAlignment = Enum.TextXAlignment.Center
@@ -936,13 +936,13 @@ local function onTap(btn, cb)
 end
 
 local C = {
-    bg         = Color3.fromRGB(5,5,5),
+    bg         = Color3.fromRGB(0,70,180),
     bgRow      = Color3.fromRGB(24,24,24),
-    white      = Color3.fromRGB(255,215,0),
+    white      = Color3.fromRGB(0,45,120),
     dim        = Color3.fromRGB(150,150,150),
     muted      = Color3.fromRGB(85,85,85),
     off        = Color3.fromRGB(48,48,48),
-    border     = Color3.fromRGB(255,215,0),
+    border     = Color3.fromRGB(0,45,120),
     danger     = Color3.fromRGB(220,50,50),
     dangerDark = Color3.fromRGB(120,22,22),
     badge      = Color3.fromRGB(65,65,65),
@@ -1014,7 +1014,7 @@ end
 local TITLE_H = math.floor(48*GS)
 local titleTxt = Instance.new("TextLabel", main)
 titleTxt.Size=UDim2.new(1,0,0,TITLE_H); titleTxt.Position=UDim2.new(0,0,0,0)
-titleTxt.BackgroundTransparency=1; titleTxt.Text="XynHub Helper"; titleTxt.TextColor3=C.white
+titleTxt.BackgroundTransparency=1; titleTxt.Text="21 Hub"; titleTxt.TextColor3=C.white
 titleTxt.Font=Enum.Font.GothamBlack; titleTxt.TextSize=math.floor(24*GS)
 titleTxt.TextXAlignment=Enum.TextXAlignment.Center; titleTxt.TextYAlignment=Enum.TextYAlignment.Center
 titleTxt.ZIndex=1
