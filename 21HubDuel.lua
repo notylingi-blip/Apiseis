@@ -1782,7 +1782,7 @@ local function criarTag(char)
     local text = Instance.new("TextLabel")
     text.Parent = gui
     text.Size = UDim2.new(1,0,1,0)
-    text.BackgroundTransparency = 0.4
+    text.BackgroundTransparency = 1
     text.Text = "discord.gg/ZxefdezK3"
     text.TextColor3 = Color3.fromRGB(0,70,180)
     text.TextScaled = true
