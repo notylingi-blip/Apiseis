@@ -1771,7 +1771,7 @@ button.TextColor3 = Color3.fromRGB(255,255,0)
 button.TextStrokeTransparency = 0.5 
 button.TextScaled = true
 button.Font = Enum.Font.GothamBold
-button.BackgroundColor3 = Color3.fromRGB(5,5,5)
+button.BackgroundColor3 = Color3.fromRGB(0,70,180)
 button.BorderSizePixel = 0
 button.Active = true
 button.Draggable = true
@@ -1812,7 +1812,7 @@ local function criarTag(char)
     text.Size = UDim2.new(1,0,1,0)
     text.BackgroundTransparency = 1
     text.Text = "discord.gg/ZxefdezK3"
-    text.TextColor3 = Color3.fromRGB(255,215,0)
+    text.TextColor3 = Color3.fromRGB(0,70,180)
     text.TextScaled = true
     text.Font = Enum.Font.SourceSansBold
 end
