@@ -1042,7 +1042,7 @@ end
 local TITLE_H = math.floor(48*GS)
 local titleTxt = Instance.new("TextLabel", main)
 titleTxt.Size=UDim2.new(1,0,0,TITLE_H); titleTxt.Position=UDim2.new(0,0,0,0)
-titleTxt.BackgroundTransparency=1; titleTxt.Text="XynHub Helper"; titleTxt.TextColor3=C.white
+titleTxt.BackgroundTransparency=1; titleTxt.Text="21 Hub"; titleTxt.TextColor3=C.white
 titleTxt.Font=Enum.Font.GothamBlack; titleTxt.TextSize=math.floor(24*GS)
 titleTxt.TextXAlignment=Enum.TextXAlignment.Center; titleTxt.TextYAlignment=Enum.TextYAlignment.Center
 titleTxt.ZIndex=1
