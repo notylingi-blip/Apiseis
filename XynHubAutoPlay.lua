@@ -964,9 +964,9 @@ local function onTap(btn, cb)
 end
 
 local C = {
-    bg         = Color3.fromRGB(0,70,180),
+    bg         = Color3.fromRGB(0,45,120),
     bgRow      = Color3.fromRGB(24,24,24),
-    white      = Color3.fromRGB(0,45,120),
+    white      = Color3.fromRGB(0,70,180),
     dim        = Color3.fromRGB(150,150,150),
     muted      = Color3.fromRGB(85,85,85),
     off        = Color3.fromRGB(48,48,48),
