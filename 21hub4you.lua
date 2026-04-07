@@ -1224,7 +1224,7 @@ ScreenGui.Parent = CoreGui
 local GREY_ACCENT     = Color3.fromRGB(0,162,255)
 local GREY_LIGHT      = Color3.fromRGB(77,166,255)
 local GREY_DARK       = Color3.fromRGB(0,46,84)
-local BG_DARK         = Color3.fromRGB(18, 18, 18)
+local BG_DARK         = Color3.fromRGB(0,46,84)
 local SECTION_BG      = Color3.fromRGB(22, 22, 22)
 
 local PANEL_W      = 200
