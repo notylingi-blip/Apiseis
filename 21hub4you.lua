@@ -1215,15 +1215,15 @@ if CoreGui:FindFirstChild("RicksDuel") then
 end
 
 local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Name = "RicksDuel"
+ScreenGui.Name = "21HubDuel"
 ScreenGui.ResetOnSpawn = false
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 ScreenGui.Parent = CoreGui
 
 -- Colors (Grey Scale)
-local GREY_ACCENT     = Color3.fromRGB(120, 120, 120)
-local GREY_LIGHT      = Color3.fromRGB(160, 160, 160)
-local GREY_DARK       = Color3.fromRGB(80, 80, 80)
+local GREY_ACCENT     = Color3.fromRGB(0,162,255)
+local GREY_LIGHT      = Color3.fromRGB(77,166,255)
+local GREY_DARK       = Color3.fromRGB(0,46,84)
 local BG_DARK         = Color3.fromRGB(18, 18, 18)
 local SECTION_BG      = Color3.fromRGB(22, 22, 22)
 
