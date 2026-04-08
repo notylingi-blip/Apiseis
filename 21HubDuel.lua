@@ -938,7 +938,7 @@ end
 local C = {
     bg         = Color3.fromRGB(0,70,180),
     bgRow      = Color3.fromRGB(24,24,24),
-    white      = Color3.fromRGB(255,255,255),
+    white      = Color3.fromRGB(0,70,180),
     dim        = Color3.fromRGB(150,150,150),
     muted      = Color3.fromRGB(85,85,85),
     off        = Color3.fromRGB(48,48,48),
@@ -989,7 +989,7 @@ if isMobile then
     local titleHitbox = Instance.new("TextButton", main)
     titleHitbox.Size = UDim2.new(1, -math.floor(_dragCBW+20*GS), 0, math.floor(48*GS))
     titleHitbox.Position = UDim2.new(0,0,0,0)
-    titleHitbox.BackgroundTransparency = 0.4; titleHitbox.Text = ""; titleHitbox.ZIndex = 20
+    titleHitbox.BackgroundTransparency = 1; titleHitbox.Text = ""; titleHitbox.ZIndex = 20
     titleHitbox.InputBegan:Connect(function(inp)
         if inp.UserInputType == Enum.UserInputType.Touch then
             mobDragging = true
