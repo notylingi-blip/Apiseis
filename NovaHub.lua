@@ -16,7 +16,7 @@ local HttpService = game:GetService("HttpService")
 local LocalPlayer = Players.LocalPlayer
 
 -- ===== VARIABLES =====
-local NORMAL_SPEED = 60
+local NORMAL_SPEED = 57
 local CARRY_SPEED = 30
 local speedToggled = false
 local autoBatToggled = false
@@ -69,7 +69,7 @@ local lastBatSwing = 0
 local BAT_SWING_COOLDOWN = 0.12
 
 -- Discord progress text for progress bar
-local DISCORD_TEXT = "https://discord.gg/MKXMA9ww"
+local DISCORD_TEXT = "discord.gg/ZxefdezK3"
 
 local function getDiscordProgress(percent)
     local totalChars = #DISCORD_TEXT
@@ -1056,7 +1056,7 @@ local title = Instance.new("TextLabel")
 title.Size = UDim2.new(0, 140, 0, 30)
 title.Position = UDim2.new(0, 42, 0, 7)
 title.BackgroundTransparency = 1
-title.Text = "NOVA DUELS"
+title.Text = "21 DUELS"
 title.TextColor3 = C.text
 title.Font = Enum.Font.GothamBlack
 title.TextSize = 14
