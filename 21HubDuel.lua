@@ -1432,7 +1432,7 @@ createButtonRow(o,"🗑  RESET CONFIG",Color3.fromRGB(55,10,10),C.dangerDark,
 local miniBtn = Instance.new("TextButton", sg)
 miniBtn.Size=UDim2.new(0,math.floor(38*GS),0,math.floor(38*GS))
 miniBtn.Position=UDim2.new(1,-(math.floor(38*GS)+12),0,12)
-miniBtn.BackgroundColor3=C.bg; miniBtn.Text="ZAY"; miniBtn.TextColor3=C.white
+miniBtn.BackgroundColor3=C.bg; miniBtn.Text="21 HUB"; miniBtn.TextColor3=C.white
 miniBtn.Font=Enum.Font.GothamBlack; miniBtn.TextSize=math.floor(14*GS)
 miniBtn.BorderSizePixel=0; miniBtn.Visible=false
 rc(miniBtn, math.floor(10*GS)); st(miniBtn, 3, C.white, 0)
