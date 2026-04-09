@@ -938,7 +938,7 @@ end
 local C = {
     bg         = Color3.fromRGB(0,70,180),
     bgRow      = Color3.fromRGB(24,24,24),
-    white      = Color3.fromRGB(255,255,255),
+    white      = Color3.fromRGB(224,242,254),
     dim        = Color3.fromRGB(150,150,150),
     muted      = Color3.fromRGB(85,85,85),
     off        = Color3.fromRGB(48,48,48),
