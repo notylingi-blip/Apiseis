@@ -10,28 +10,24 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local HttpService       = game:GetService("HttpService")
 local Player            = Players.LocalPlayer
 
--- [[ 1. PASANG TANDA RAHASIA DI DIRI SENDIRI ]]
--- Tanda ini bakal ditaruh di folder Folder khusus agar bisa dibaca player lain
-local function markSelf()
-    if not lp:FindFirstChild("21HubMarker") then
-        local marker = Instance.new("Folder", lp)
-        marker.Name = "21HubMarker" -- Ini 'kunci' deteksinya
-    end
-end
-markSelf()
+-- [[ 1. PASANG KUNCI RAHASIA DI DIRI SENDIRI ]] --
+-- Hanya script ini yang bakal pasang attribute "User21Hub_Verified"
+game.Players.LocalPlayer:SetAttribute("User21Hub_Verified", true)
 
--- [[ 2. FUNGSI BUAT MUNCULIN TEKS DI PLAYER LAIN ]]
-local function createTag(targetPlayer)
-    if targetPlayer == lp then return end
-    
-    local char = targetPlayer.Character or targetPlayer.CharacterAdded:Wait()
+local Players = game:GetService("Players")
+local lp = Players.LocalPlayer
+
+-- [[ 2. FUNGSI RENDER TAG ]] --
+local function createTag(player)
+    if player == lp then return end
+    local char = player.Character or player.CharacterAdded:Wait()
     local head = char:WaitForChild("Head", 10)
     
     if head and not head:FindFirstChild("HubTag") then
         local b = Instance.new("BillboardGui", head)
         b.Name = "HubTag"
         b.Size = UDim2.new(0, 150, 0, 50)
-        b.StudsOffset = Vector3.new(0, 4.5, 0) -- Tinggi di atas tag discord
+        b.StudsOffset = Vector3.new(0, 4.5, 0)
         b.AlwaysOnTop = true
         
         local l = Instance.new("TextLabel", b)
@@ -46,36 +42,21 @@ local function createTag(targetPlayer)
     end
 end
 
--- [[ 3. SCANNER: CEK SIAPA YANG PUNYA 'KUNCI' ]]
+-- [[ 3. LOOP SCANNER KHUSUS ]] --
 task.spawn(function()
     while task.wait(5) do
-        for _, p in pairs(game.Players:GetPlayers()) do
-            if p ~= lp then
-                -- KALO PLAYER LAIN PUNYA FOLDER '21HubMarker', BERARTI DIA PAKE SCRIPT
-                if p:FindFirstChild("21HubMarker") then
-                    createTag(p)
-                end
-            end
-        end
-    end
-end)
-
--- Logika Deteksi: Cek UI di Player lain
-task.spawn(function()
-    while task.wait(5) do -- Cek tiap 5 detik biar gak berat
         for _, p in pairs(Players:GetPlayers()) do
-            if p ~= lp and p:FindFirstChild("PlayerGui") then
-                -- Cek apakah mereka punya UI dengan nama XynHub atau 21Hub
-                local hasScript = false
-                for _, ui in pairs(p.PlayerGui:GetChildren()) do
-                    if ui.Name:match("XynHub") or ui.Name:match("21Hub") then
-                        hasScript = true
-                        break
-                    end
-                end
-                
-                if hasScript then
+            if p ~= lp then
+                -- CEK APAKAH PLAYER LAIN PUNYA ATRIBUT RAHASIA TADI
+                -- Kalo dia gak execute script ini, attribute ini GAK AKAN ADA
+                if p:GetAttribute("User21Hub_Verified") == true then
                     createTag(p)
+                else
+                    -- Kalo dia lepas script atau gak pake, hapus tag-nya (kalo ada)
+                    local char = p.Character
+                    if char and char:FindFirstChild("Head") and char.Head:FindFirstChild("HubTag") then
+                        char.Head.HubTag:Destroy()
+                    end
                 end
             end
         end
