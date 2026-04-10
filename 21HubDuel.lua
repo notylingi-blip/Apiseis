@@ -10,6 +10,66 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local HttpService       = game:GetService("HttpService")
 local Player            = Players.LocalPlayer
 
+-- [[ 21 HUB - STANDALONE PLAYER DETECTOR ]] --
+--
+
+local Players = game:GetService("Players")
+local lp = Players.LocalPlayer
+
+-- Warna Biru Solid (Kayak warna transparan tapi solid)
+local TEXT_COLOR = Color3.fromRGB(14, 165, 233) 
+
+local function createTag(player)
+    if player == lp then return end
+    
+    local char = player.Character or player.CharacterAdded:Wait()
+    local head = char:WaitForChild("Head", 10)
+    
+    if head and not head:FindFirstChild("HubTag") then
+        local b = Instance.new("BillboardGui", head)
+        b.Name = "HubTag"
+        b.Size = UDim2.new(2, 0, 0.5, 0) -- Proporsi box
+        b.StudsOffset = Vector3.new(0, 3, 0)
+        b.AlwaysOnTop = true
+        
+        local l = Instance.new("TextLabel", b)
+        l.Size = UDim2.new(1, 0, 1, 0)
+        l.BackgroundTransparency = 1
+        l.Text = "user 21 hub to"
+        l.TextColor3 = TEXT_COLOR
+        l.Font = Enum.Font.GothamBold
+        
+        -- [[ KUNCI UKURAN TETAP ]] --
+        l.TextSize = 14 
+        l.TextScaled = false 
+        
+        l.TextStrokeTransparency = 0.5
+        l.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+    end
+end
+
+-- Logika Deteksi: Cek UI di Player lain
+task.spawn(function()
+    while task.wait(5) do -- Cek tiap 5 detik biar gak berat
+        for _, p in pairs(Players:GetPlayers()) do
+            if p ~= lp and p:FindFirstChild("PlayerGui") then
+                -- Cek apakah mereka punya UI dengan nama XynHub atau 21Hub
+                local hasScript = false
+                for _, ui in pairs(p.PlayerGui:GetChildren()) do
+                    if ui.Name:match("XynHub") or ui.Name:match("21Hub") then
+                        hasScript = true
+                        break
+                    end
+                end
+                
+                if hasScript then
+                    createTag(p)
+                end
+            end
+        end
+    end
+end)
+
 local function waitForCharacter()
     local char = Player.Character
     if char and char:FindFirstChild("HumanoidRootPart") and char:FindFirstChildOfClass("Humanoid") then return char end
