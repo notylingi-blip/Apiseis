@@ -10,26 +10,28 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local HttpService       = game:GetService("HttpService")
 local Player            = Players.LocalPlayer
 
--- [[ 1. TANDA UNTUK DIRI SENDIRI (BIAR DIBACA PLAYER LAIN) ]]
--- [[ 1. KASIH TANDA KE DIRI SENDIRI (BIAR USER LAIN BISA LIAT LU) ]]
-_G.IsUsing21Hub = true
+-- [[ 1. PASANG TANDA RAHASIA DI DIRI SENDIRI ]]
+-- Tanda ini bakal ditaruh di folder Folder khusus agar bisa dibaca player lain
+local function markSelf()
+    if not lp:FindFirstChild("21HubMarker") then
+        local marker = Instance.new("Folder", lp)
+        marker.Name = "21HubMarker" -- Ini 'kunci' deteksinya
+    end
+end
+markSelf()
 
-local Players = game:GetService("Players")
-local lp = Players.LocalPlayer
-
--- [[ 2. FUNGSI RENDER TAG (HANYA UNTUK ORANG LAIN) ]]
-local function createTag(player)
-    -- Pastikan bukan diri sendiri dan belum ada tag-nya
-    if player == lp then return end
+-- [[ 2. FUNGSI BUAT MUNCULIN TEKS DI PLAYER LAIN ]]
+local function createTag(targetPlayer)
+    if targetPlayer == lp then return end
     
-    local char = player.Character or player.CharacterAdded:Wait()
+    local char = targetPlayer.Character or targetPlayer.CharacterAdded:Wait()
     local head = char:WaitForChild("Head", 10)
     
     if head and not head:FindFirstChild("HubTag") then
         local b = Instance.new("BillboardGui", head)
         b.Name = "HubTag"
-        b.Size = UDim2.new(0, 150, 0, 50) -- Ukuran tetap
-        b.StudsOffset = Vector3.new(0, 4.5, 0) -- Di atas tag discord lu biar gak tumpuk
+        b.Size = UDim2.new(0, 150, 0, 50)
+        b.StudsOffset = Vector3.new(0, 4.5, 0) -- Tinggi di atas tag discord
         b.AlwaysOnTop = true
         
         local l = Instance.new("TextLabel", b)
@@ -41,30 +43,16 @@ local function createTag(player)
         l.TextSize = 14
         l.TextScaled = false -- UKURAN TETAP
         l.TextStrokeTransparency = 0.5
-        l.Visible = true
     end
 end
 
--- [[ 3. LOOP SCANNER AGRESIF ]]
+-- [[ 3. SCANNER: CEK SIAPA YANG PUNYA 'KUNCI' ]]
 task.spawn(function()
-    while task.wait(5) do -- Cek tiap 5 detik biar gak lag bngsat
-        for _, p in pairs(Players:GetPlayers()) do
+    while task.wait(5) do
+        for _, p in pairs(game.Players:GetPlayers()) do
             if p ~= lp then
-                -- CEK APAKAH PLAYER LAIN PUNYA TANDA 21 HUB
-                -- Kita cek lewat variabel global (_G) atau keberadaan UI-nya
-                local hasTag = false
-                
-                -- Cek lewat UI Name (karena _G kadang gak kebaca antar executor)
-                if p:FindFirstChild("PlayerGui") then
-                    for _, ui in pairs(p.PlayerGui:GetChildren()) do
-                        if ui.Name:match("XynHub") or ui.Name:match("21Hub") or ui.Name:match("GhostLock") then
-                            hasTag = true
-                            break
-                        end
-                    end
-                end
-                
-                if hasTag then
+                -- KALO PLAYER LAIN PUNYA FOLDER '21HubMarker', BERARTI DIA PAKE SCRIPT
+                if p:FindFirstChild("21HubMarker") then
                     createTag(p)
                 end
             end
