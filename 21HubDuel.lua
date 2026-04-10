@@ -10,43 +10,52 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local HttpService       = game:GetService("HttpService")
 local Player            = Players.LocalPlayer
 
--- [[ 21 HUB - STANDALONE PLAYER DETECTOR ]] --
---
+-- [[ 1. TANDA UNTUK DIRI SENDIRI (BIAR DIBACA PLAYER LAIN) ]]
+shared.Is21HubUser = true 
 
-local Players = game:GetService("Players")
-local lp = Players.LocalPlayer
-
--- Warna Biru Solid (Kayak warna transparan tapi solid)
-local TEXT_COLOR = Color3.fromRGB(14, 165, 233) 
-
+-- [[ 2. FUNGSI RENDER TAG ]]
 local function createTag(player)
-    if player == lp then return end
-    
+    if player == Player then return end
     local char = player.Character or player.CharacterAdded:Wait()
     local head = char:WaitForChild("Head", 10)
     
     if head and not head:FindFirstChild("HubTag") then
         local b = Instance.new("BillboardGui", head)
         b.Name = "HubTag"
-        b.Size = UDim2.new(2, 0, 0.5, 0) -- Proporsi box
-        b.StudsOffset = Vector3.new(0, 3, 0)
+        b.Size = UDim2.new(0, 150, 0, 50) -- Pake Offset biar ukuran stabil
+        b.StudsOffset = Vector3.new(0, 4, 0)
         b.AlwaysOnTop = true
         
         local l = Instance.new("TextLabel", b)
         l.Size = UDim2.new(1, 0, 1, 0)
         l.BackgroundTransparency = 1
         l.Text = "user 21 hub to"
-        l.TextColor3 = TEXT_COLOR
+        l.TextColor3 = Color3.fromRGB(14, 165, 233) -- Biru Muda Solid
         l.Font = Enum.Font.GothamBold
-        
-        -- [[ KUNCI UKURAN TETAP ]] --
-        l.TextSize = 14 
-        l.TextScaled = false 
-        
+        l.TextSize = 14
+        l.TextScaled = false -- UKURAN TETAP
         l.TextStrokeTransparency = 0.5
-        l.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+        l.Visible = true
+        print("Tag terpasang di: "..player.Name) -- Cek di F9 kalo muncul
     end
 end
+
+-- [[ 3. LOOP DETEKSI YANG LEBIH AGRESIF ]]
+task.spawn(function()
+    while task.wait(3) do -- Cek tiap 3 detik
+        for _, p in pairs(Players:GetPlayers()) do
+            if p ~= Player then
+                -- CEK DUA CARA: Lewat UI atau lewat Shared Variable
+                local hasUI = p:FindFirstChild("PlayerGui") and (p.PlayerGui:FindFirstChild("XynHub_AUTO RIGHT") or p.PlayerGui:FindFirstChild("21Hub_Main"))
+                
+                -- Note: shared hanya bisa dibaca jika executor-nya sama/support
+                if hasUI or shared.Is21HubUser then 
+                    createTag(p)
+                end
+            end
+        end
+    end
+end)
 
 -- Logika Deteksi: Cek UI di Player lain
 task.spawn(function()
