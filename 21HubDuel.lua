@@ -11,19 +11,25 @@ local HttpService       = game:GetService("HttpService")
 local Player            = Players.LocalPlayer
 
 -- [[ 1. TANDA UNTUK DIRI SENDIRI (BIAR DIBACA PLAYER LAIN) ]]
-shared.Is21HubUser = true 
+-- [[ 1. KASIH TANDA KE DIRI SENDIRI (BIAR USER LAIN BISA LIAT LU) ]]
+_G.IsUsing21Hub = true
 
--- [[ 2. FUNGSI RENDER TAG ]]
+local Players = game:GetService("Players")
+local lp = Players.LocalPlayer
+
+-- [[ 2. FUNGSI RENDER TAG (HANYA UNTUK ORANG LAIN) ]]
 local function createTag(player)
-    if player == Player then return end
+    -- Pastikan bukan diri sendiri dan belum ada tag-nya
+    if player == lp then return end
+    
     local char = player.Character or player.CharacterAdded:Wait()
     local head = char:WaitForChild("Head", 10)
     
     if head and not head:FindFirstChild("HubTag") then
         local b = Instance.new("BillboardGui", head)
         b.Name = "HubTag"
-        b.Size = UDim2.new(0, 150, 0, 50) -- Pake Offset biar ukuran stabil
-        b.StudsOffset = Vector3.new(0, 4, 0)
+        b.Size = UDim2.new(0, 150, 0, 50) -- Ukuran tetap
+        b.StudsOffset = Vector3.new(0, 4.5, 0) -- Di atas tag discord lu biar gak tumpuk
         b.AlwaysOnTop = true
         
         local l = Instance.new("TextLabel", b)
@@ -36,20 +42,29 @@ local function createTag(player)
         l.TextScaled = false -- UKURAN TETAP
         l.TextStrokeTransparency = 0.5
         l.Visible = true
-        print("Tag terpasang di: "..player.Name) -- Cek di F9 kalo muncul
     end
 end
 
--- [[ 3. LOOP DETEKSI YANG LEBIH AGRESIF ]]
+-- [[ 3. LOOP SCANNER AGRESIF ]]
 task.spawn(function()
-    while task.wait(3) do -- Cek tiap 3 detik
+    while task.wait(5) do -- Cek tiap 5 detik biar gak lag bngsat
         for _, p in pairs(Players:GetPlayers()) do
-            if p ~= Player then
-                -- CEK DUA CARA: Lewat UI atau lewat Shared Variable
-                local hasUI = p:FindFirstChild("PlayerGui") and (p.PlayerGui:FindFirstChild("XynHub_AUTO RIGHT") or p.PlayerGui:FindFirstChild("21Hub_Main"))
+            if p ~= lp then
+                -- CEK APAKAH PLAYER LAIN PUNYA TANDA 21 HUB
+                -- Kita cek lewat variabel global (_G) atau keberadaan UI-nya
+                local hasTag = false
                 
-                -- Note: shared hanya bisa dibaca jika executor-nya sama/support
-                if hasUI or shared.Is21HubUser then 
+                -- Cek lewat UI Name (karena _G kadang gak kebaca antar executor)
+                if p:FindFirstChild("PlayerGui") then
+                    for _, ui in pairs(p.PlayerGui:GetChildren()) do
+                        if ui.Name:match("XynHub") or ui.Name:match("21Hub") or ui.Name:match("GhostLock") then
+                            hasTag = true
+                            break
+                        end
+                    end
+                end
+                
+                if hasTag then
                     createTag(p)
                 end
             end
