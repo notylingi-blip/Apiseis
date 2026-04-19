@@ -174,8 +174,8 @@ task.spawn(function()
     }):Play()
     task.wait(0.35)
 
-    local part1 = "STICK DUELS"
-    local part2 = " > Nine Duels"
+    local part1 = "SCRIPT DUELS"
+    local part2 = " > By 21 Hub"
     local full   = part1 .. part2
 
     for i = 1, #full do
