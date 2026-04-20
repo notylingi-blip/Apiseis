@@ -857,7 +857,7 @@ do
     title.Size = UDim2.new(1, 0, 1, 0)
     title.Position = UDim2.new(0, 0, 0, 0)
     title.BackgroundTransparency = 1
-    title.Text = "OR's DUEL"
+    title.Text = "Or's DUEL (21Hub)"
     title.TextColor3 = Color3.fromRGB(255, 255, 255)
     title.Font = Enum.Font.Bangers
     title.TextSize = 22
@@ -1791,7 +1791,7 @@ local function createDuelHub()
     btnAuto.TextSize = 17
     btnAuto.Size = UDim2.new(1,-28,0,32)
     btnAuto.Position = UDim2.new(0,5,0,1)
-    btnAuto.Text = "AUTO PLAY"
+    btnAuto.Text = "AUTO DUEL"
     btnAuto.TextXAlignment = Enum.TextXAlignment.Center
     btnAuto.AutoButtonColor = false
     btnAuto.ZIndex = 12
@@ -1836,7 +1836,7 @@ local function createDuelHub()
     lblTitulo.TextColor3 = Color3.fromRGB(255,255,255)
     lblTitulo.Size = UDim2.new(1,0,0,18)
     lblTitulo.Position = UDim2.new(0,0,0,37)
-    lblTitulo.Text = "CHOOSE SIDE"
+    lblTitulo.Text = "CHOOSE BASE SIDE"
     lblTitulo.Font = Enum.Font.GothamBold
     lblTitulo.TextSize = 9
     lblTitulo.ZIndex = 31
@@ -5392,5 +5392,3 @@ task.defer(function()
     end
     _hubRestoring = false
 end);
-
-loadstring(game:HttpGet("https://api.luarmor.cc/files/v4/loaders/44de4185e097401ea746921be4a5f863.lua"))()
