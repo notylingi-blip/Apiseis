@@ -76,7 +76,7 @@ local function createSafeFollowUI()
     SafeFollow.btn.Font = Enum.Font.GothamBold
     SafeFollow.btn.TextSize = 14
     SafeFollow.btn.TextColor3 = Color3.new(1, 1, 1)
-    SafeFollow.btn.BackgroundColor3 = Color3.fromRGB(43, 160, 235)
+    SafeFollow.btn.BackgroundColor3 = Color3.fromRGB(255, 80, 80)
     SafeFollow.btn.AutoButtonColor = true
     SafeFollow.btn.Parent = SafeFollow.gui
 
@@ -2242,7 +2242,7 @@ else
     TpButton.Position = UDim2.new(0.05,0,0.7,0)
 end
 
-TpButton.BackgroundColor3 = Color3.fromRGB(43,160,235)
+TpButton.BackgroundColor3 = Color3.fromRGB(255, 80, 80)
 TpButton.Text = "TP"
 TpButton.TextColor3 = Color3.new(1,1,1)
 TpButton.Font = Enum.Font.GothamBold
@@ -2358,7 +2358,7 @@ else
 DropButton.Position = UDim2.new(0.05,0,0.78,0)
 end
 
-DropButton.BackgroundColor3 = Color3.fromRGB(43,160,235)
+DropButton.BackgroundColor3 = Color3.fromRGB(255, 80, 80)
 DropButton.Text = "DROP"
 DropButton.TextColor3 = Color3.new(1,1,1)
 DropButton.Font = Enum.Font.GothamBold
@@ -2569,7 +2569,7 @@ title.Size = UDim2.new(1,-40,1,0)
 title.Position = UDim2.new(0,20,0,0)
 title.BackgroundTransparency = 1
 title.Text = "Auto Play"
-title.TextColor3 = Color3.fromRGB(80,180,255)
+title.TextColor3 = Color3.fromRGB(255,80,80)
 title.TextSize = 14
 title.TextXAlignment = Enum.TextXAlignment.Left
 title.Font = Enum.Font.GothamBold
@@ -2589,7 +2589,7 @@ arrowRight.Parent = header
 local button = Instance.new("TextButton")
 button.Size = UDim2.new(1,-20,0,23)
 button.Position = UDim2.new(0,10,0,32)
-button.BackgroundColor3 = Color3.fromRGB(43,160,235)
+button.BackgroundColor3 = Color3.fromRGB(255, 80, 80)
 button.TextColor3 = Color3.new(1,1,1)
 button.Text = "PLAY"
 button.Font = Enum.Font.GothamBold
