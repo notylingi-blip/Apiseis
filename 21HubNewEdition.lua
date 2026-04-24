@@ -1,48 +1,4 @@
 -- 5RT HUB - Eclipse X Style (Mobile Optimized)
--- 2 Tabs: FEATURES & SETTINGS
-local Players = game:GetService("Players")
-local player = Players.LocalPlayer
-
--- === WARNA TEMA BIRU ===
-local C_TEXT = Color3.fromRGB(220, 235, 255)
-local C_ACCENT = Color3.fromRGB(0, 140, 255)
-
-local function createBillboard(character)
-    local head = character:WaitForChild("Head")
-
-    if head:FindFirstChild("MyTag") then
-        head.MyTag:Destroy()
-    end
-
-    local billboard = Instance.new("BillboardGui")
-    billboard.Name = "MyTag"
-    billboard.Size = UDim2.new(0, 140, 0, 30) -- ⬅️ DIPERKECIL
-    billboard.StudsOffset = Vector3.new(0, 2, 0) -- ⬅️ sedikit lebih dekat ke kepala
-    billboard.AlwaysOnTop = true
-    billboard.Parent = head
-
-    local textLabel = Instance.new("TextLabel")
-    textLabel.Size = UDim2.new(1, 0, 1, 0)
-    textLabel.BackgroundTransparency = 1
-    textLabel.Text = "discord.gg/PvfWMc5ga"
-    textLabel.TextScaled = true
-    textLabel.Font = Enum.Font.GothamBold
-    textLabel.TextColor3 = C_TEXT
-    textLabel.Parent = billboard
-
-    local stroke = Instance.new("UIStroke")
-    stroke.Color = C_ACCENT
-    stroke.Thickness = 1 -- ⬅️ lebih tipis biar cocok sama ukuran kecil
-    stroke.Parent = textLabel
-end
-
-if player.Character then
-    createBillboard(player.Character)
-end
-
-player.CharacterAdded:Connect(function(char)
-    createBillboard(char)
-end)
 
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
@@ -2330,6 +2286,50 @@ RunService.Heartbeat:Connect(function(dt)
             gradient.Rotation = (gradient.Rotation + 90 * dt) % 360
         end
     end
+end)
+
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+
+-- === WARNA TEMA BIRU ===
+local C_TEXT = Color3.fromRGB(220, 235, 255)
+local C_ACCENT = Color3.fromRGB(0, 140, 255)
+
+local function createBillboard(character)
+    local head = character:WaitForChild("Head")
+
+    if head:FindFirstChild("MyTag") then
+        head.MyTag:Destroy()
+    end
+
+    local billboard = Instance.new("BillboardGui")
+    billboard.Name = "MyTag"
+    billboard.Size = UDim2.new(0, 140, 0, 30) -- ⬅️ DIPERKECIL
+    billboard.StudsOffset = Vector3.new(0, 2, 0) -- ⬅️ sedikit lebih dekat ke kepala
+    billboard.AlwaysOnTop = true
+    billboard.Parent = head
+
+    local textLabel = Instance.new("TextLabel")
+    textLabel.Size = UDim2.new(1, 0, 1, 0)
+    textLabel.BackgroundTransparency = 1
+    textLabel.Text = "discord.gg/PvfWMc5ga"
+    textLabel.TextScaled = true
+    textLabel.Font = Enum.Font.GothamBold
+    textLabel.TextColor3 = C_TEXT
+    textLabel.Parent = billboard
+
+    local stroke = Instance.new("UIStroke")
+    stroke.Color = C_ACCENT
+    stroke.Thickness = 1 -- ⬅️ lebih tipis biar cocok sama ukuran kecil
+    stroke.Parent = textLabel
+end
+
+if player.Character then
+    createBillboard(player.Character)
+end
+
+player.CharacterAdded:Connect(function(char)
+    createBillboard(char)
 end)
 
 print("✅ 5RT HUB - 2 Tabs (FEATURES & SETTINGS) loaded. Press the 5 button to toggle GUI.")
