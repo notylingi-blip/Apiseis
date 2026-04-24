@@ -356,7 +356,7 @@ local Header = create("Frame", {
 
 create("TextLabel", {
     Text = "Kawatan Hub",
-    TextColor3 = Color3.fromRGB(85,170,255), -- azul claro igual botão
+    TextColor3 = Color3.fromRGB(255,80,80), -- azul claro igual botão
     Font = "GothamBold",
     TextSize = 16,
     Size = UDim2.new(1,0,1,0),
@@ -1959,7 +1959,7 @@ AddToggle("Visual", "Show Performance", false, function(v)
             Label.TextSize = 14
             Label.RichText = true
             Label.TextColor3 = HUB_BLUE
-            Label.Text = "<font color='rgb(85,170,255)'>Kawatan Hub | FPS 0 PING 0ms</font>"
+            Label.Text = "<font color='rgb(255,80,80)'>Kawatan Hub (21Hub)| FPS 0 PING 0ms</font>"
             Label.Parent = Frame
 
             local frames = 0
@@ -1979,7 +1979,7 @@ AddToggle("Visual", "Show Performance", false, function(v)
                         Stats.Network.ServerStatsItem["Data Ping"]:GetValue()
                     )
 
-                    Label.Text = "<font color='rgb(85,170,255)'>Kawatan Hub | FPS "..fps.." PING "..ping.."ms</font>"
+                    Label.Text = "<font color='rgb(255,80,80)'>Kawatan Hub (21Hub)| FPS "..fps.." PING "..ping.."ms</font>"
 
                 end
 
