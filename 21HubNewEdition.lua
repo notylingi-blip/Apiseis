@@ -19,19 +19,19 @@ local MOBILE_WIDTH = isMobile and 280 or 360
 local MOBILE_HEIGHT = isMobile and 450 or 580
 
 -- ===== BLACK AND WHITE THEME WITH ROTATING BORDER =====
-local C_BG = Color3.fromRGB(0, 0, 0)
-local C_ACTIVE = Color3.fromRGB(40, 40, 40)
-local C_BORDER = Color3.fromRGB(255, 255, 255)
-local C_TEXT = Color3.fromRGB(255, 255, 255)
-local C_TITLE = Color3.fromRGB(255, 255, 255)
-local C_ACCENT = Color3.fromRGB(255, 255, 255)
-local C_PURPLE = Color3.fromRGB(180, 100, 255)
-local C_WHITE = Color3.fromRGB(240, 240, 255)
-local C_CARD = Color3.fromRGB(14, 14, 22)
-local C_OFF = Color3.fromRGB(35, 35, 50)
-local C_RED = Color3.fromRGB(255, 100, 100)
-local C_MOB_ON = Color3.fromRGB(100, 100, 100)
-local C_MOB_OFF = Color3.fromRGB(14, 10, 24)
+local C_BG = Color3.fromRGB(10, 25, 50)        -- background utama (dark navy)
+local C_ACTIVE = Color3.fromRGB(30, 60, 120)   -- aktif (biru agak terang)
+local C_BORDER = Color3.fromRGB(80, 150, 255)  -- border (biru terang)
+local C_TEXT = Color3.fromRGB(220, 235, 255)   -- teks (putih kebiruan)
+local C_TITLE = Color3.fromRGB(255, 255, 255)  -- judul (putih)
+local C_ACCENT = Color3.fromRGB(0, 140, 255)   -- aksen utama (biru iOS style)
+local C_PURPLE = Color3.fromRGB(100, 150, 255) -- diganti jadi biru soft
+local C_WHITE = Color3.fromRGB(200, 220, 255)  -- putih kebiruan
+local C_CARD = Color3.fromRGB(15, 30, 60)      -- card (dark blue)
+local C_OFF = Color3.fromRGB(25, 45, 80)       -- nonaktif
+local C_RED = Color3.fromRGB(100, 170, 255)    -- ganti jadi biru (biar konsisten)
+local C_MOB_ON = Color3.fromRGB(80, 140, 220)  -- ON
+local C_MOB_OFF = Color3.fromRGB(10, 20, 40)   -- OFF (gelap)
 
 local rotatingStrokes = {}
 
