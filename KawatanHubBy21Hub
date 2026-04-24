@@ -76,7 +76,7 @@ local function createSafeFollowUI()
     SafeFollow.btn.Font = Enum.Font.GothamBold
     SafeFollow.btn.TextSize = 14
     SafeFollow.btn.TextColor3 = Color3.new(1, 1, 1)
-    SafeFollow.btn.BackgroundColor3 = Color3.fromRGB(255, 80, 80)
+    SafeFollow.btn.BackgroundColor3 = Color3.fromRGB(255,80,80)
     SafeFollow.btn.AutoButtonColor = true
     SafeFollow.btn.Parent = SafeFollow.gui
 
