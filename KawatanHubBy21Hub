@@ -30,12 +30,12 @@ ScreenGui.ResetOnSpawn = false
 
 --------------------------------------------------------------------------- Color Palette
 local COLORS = {
-    MainBG = Color3.fromRGB(11, 14, 20),
-    TabBG = Color3.fromRGB(15, 20, 28),
-    Border = Color3.fromRGB(35, 125, 255),
-    TextActive = Color3.fromRGB(35, 125, 255),
-    TextInactive = Color3.fromRGB(140, 140, 140),
-    RowBG = Color3.fromRGB(18, 24, 35)
+    MainBG = Color3.fromRGB(20, 10, 10),      -- background utama (gelap merah)
+    TabBG = Color3.fromRGB(30, 15, 15),       -- tab background
+    Border = Color3.fromRGB(255, 80, 80),     -- border merah terang
+    TextActive = Color3.fromRGB(255, 120, 120), -- teks aktif
+    TextInactive = Color3.fromRGB(150, 120, 120), -- teks nonaktif (abu merah)
+    RowBG = Color3.fromRGB(25, 12, 12)        -- row background
 }
 
 -------------------------------------------------------------------------
