@@ -421,7 +421,7 @@ local function startTaunt()
                 local TCS = game:GetService("TextChatService")
                 local ch = TCS.TextChannels:FindFirstChild("RBXGeneral")
                 if ch then
-                    ch:SendAsync("/lol 5RT HUB 🔥🔥")
+                    ch:SendAsync("/lol 21 hub on top😹")
                 else
                     game:GetService("ReplicatedStorage"):WaitForChild("DefaultChatSystemChatEvents", 1):WaitForChild("SayMessageRequest", 1):FireServer("/lol 5RT HUB 🔥🔥", "All")
                 end
@@ -1470,7 +1470,7 @@ end)
 
 -- ===== GUI =====
 local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Name = "5RT_Hub"
+ScreenGui.Name = "21Hub Duel"
 ScreenGui.ResetOnSpawn = false
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 ScreenGui.Parent = CoreGui
@@ -1492,7 +1492,7 @@ RunService.RenderStepped:Connect(function()
     fpsCount = fpsCount + 1
     if tick() - fpsTimer >= 1 then
         local ping = math.floor(player:GetNetworkPing() * 1000)
-        topLabel.Text = "5RT DUEL | " .. fpsCount .. " FPS | " .. ping .. " ms"
+        topLabel.Text = "21Hub DUEL | " .. fpsCount .. " FPS | " .. ping .. " ms"
         fpsCount = 0
         fpsTimer = tick()
     end
@@ -1532,7 +1532,7 @@ TitleFix.BorderSizePixel = 0
 local TitleLbl = Instance.new("TextLabel", TitleBar)
 TitleLbl.Size = UDim2.new(1, 0, 1, 0)
 TitleLbl.BackgroundTransparency = 1
-TitleLbl.Text = "5RT HUB"
+TitleLbl.Text = "21 HUB"
 TitleLbl.Font = Enum.Font.Bangers
 TitleLbl.TextSize = 20
 TitleLbl.TextColor3 = C_WHITE
