@@ -126,7 +126,7 @@ local function createSafeFollowUI()
             SafeFollow.btn.BackgroundColor3 = Color3.fromRGB(255, 65, 65)
         else
             SafeFollow.btn.Text = "LOCK"
-            SafeFollow.btn.BackgroundColor3 = Color3.fromRGB(43, 160, 235)
+            SafeFollow.btn.BackgroundColor3 = Color3.fromRGB(255, 80, 80)
         end
     end)
 
